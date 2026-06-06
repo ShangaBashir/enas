@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 20th Birthday, Enas! ✨</title>
+  
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Music Controller (Hidden, triggered via JS) -->
+  <div id="audio-container"></div>
+
+  <!-- Ambient Sound Control (Mute/Unmute button) -->
+  <button id="mute-btn" class="control-btn" aria-label="Toggle sound" style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    </svg>
+  </button>
+
+  <!-- SCENE 1: THE WISH (Candle in the dark) -->
+  <section id="scene-wish" class="scene active">
+    <div class="wish-container">
+      <h1 class="wish-title">Make a Wish, Enas... ✨</h1>
+      <p class="wish-subtitle">You are turning 20 today. Close your eyes, think of a beautiful dream, and tap the candle when you're ready to make your wish.</p>
+      
+      <div class="candle-wrapper" id="candle-trigger">
+        <div class="candle">
+          <div class="candle-wick"></div>
+          <div class="candle-flame" id="flame"></div>
+          <div class="candle-smoke" id="smoke"></div>
+        </div>
+        <div class="candle-glow" id="candle-glow"></div>
+        <div class="candle-stand"></div>
+      </div>
+
+      <div class="timer-display" id="timer-display">
+        <button id="wish-btn" class="elegant-btn">Make a Wish & Blow</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 2: LIGHTS OUT (Black screen) -->
+  <section id="scene-darkness" class="scene">
+    <div class="darkness-content">
+      <div class="blowing-text">Blowing out your candle... 💨</div>
+    </div>
+  </section>
+
+  <!-- SCENE 3: CELEBRATION (Lights back on, money raining, surprise chest) -->
+  <section id="scene-celebration" class="scene">
+    <!-- Canvas for Money and Confetti Rain -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="celebration-container">
+      <div class="header-card">
+        <span class="badge">Chapter 20</span>
+        <h1 class="main-title">Happy Birthday, Enas! 🎉</h1>
+        <p class="main-subtitle">May your 20s be the most magical decade of your life!</p>
+      </div>
+
+      <!-- Surprise Section -->
+      <div class="surprise-section">
+        <!-- Glowing Gift Box / Chest -->
+        <div class="chest-wrapper" id="chest-trigger">
+          <div class="chest-glow"></div>
+          <div class="chest">
+            <div class="chest-lid">
+              <div class="chest-lid-ribbon"></div>
+            </div>
+            <div class="chest-body">
+              <div class="chest-body-ribbon"></div>
+              <div class="chest-lock"></div>
+            </div>
+          </div>
+          <div class="tap-instruction">Enas, tap to open your surprise! 🎁</div>
+        </div>
+
+        <!-- The Open Scroll containing warm words (hidden initially) -->
+        <div class="scroll-container" id="scroll-container">
+          <div class="scroll-paper">
+            <button class="close-scroll-btn" id="close-scroll-btn">&times;</button>
+            <div class="scroll-body">
+              <div class="scroll-header">
+                <h2>A Letter for Enas</h2>
+                <div class="scroll-divider">🌸</div>
+              </div>
+              <div class="scroll-content">
+                <p class="letter-text">Dearest Enas,</p>
+                <p class="letter-text">Welcome to the wonderful world of being <strong>20</strong>! 💖</p>
+                <p class="letter-text">Today marks the beginning of a beautiful new decade. As your friend, I wanted to create something truly magical and special to celebrate the amazing person you are today!</p>
+                <p class="letter-text">You are a rare, elegant, and shining soul who brings so much light and joy into my life. Always believe in the magic of your own potential, and know that I am always here for you, cheering you on.</p>
+                <p class="letter-text">May this milestone year bring you endless laughter, brilliant opportunities, and the courage to achieve everything your heart desires.</p>
+                <p class="letter-text">Here's to an unforgettable 20th year, filled with pure happiness, adventures, and pockets that are always full of joy (and cash!). 💵✨</p>
+                <p class="letter-signature">With all my love,</p>
+                <p class="letter-signature" style="margin-top: 5px; font-size: 2.8rem;">Shanga 💖</p>
+              </div>
+              
+              <div class="scroll-divider"></div>
+
+              <!-- Interactive Gift Coupons inside the letter -->
+              <div class="gift-coupons-title">Tap to unlock your Birthday Gifts! 🎟️</div>
+              <div class="coupons-grid">
+                
+                <!-- Coupon 1 -->
+                <div class="coupon-card" id="coupon-1">
+                  <div class="coupon-inner">
+                    <div class="coupon-front">
+                      <span class="coupon-icon">💰</span>
+                      <span class="coupon-label">Gift of Wealth</span>
+                    </div>
+                    <div class="coupon-back">
+                      <div class="coupon-back-content">
+                        <span class="cash-value">$100</span>
+                        <p class="cash-label">Birthday Gift! 🎁</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coupon 2 -->
+                <div class="coupon-card" id="coupon-2">
+                  <div class="coupon-inner">
+                    <div class="coupon-front">
+                      <span class="coupon-icon">✈️</span>
+                      <span class="coupon-label">Gift of Travel</span>
+                    </div>
+                    <div class="coupon-back">
+                      <div class="coupon-back-content">
+                        <span class="cash-value">$100</span>
+                        <p class="cash-label">Birthday Gift! 🎁</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coupon 3 -->
+                <div class="coupon-card" id="coupon-3">
+                  <div class="coupon-inner">
+                    <div class="coupon-front">
+                      <span class="coupon-icon">💖</span>
+                      <span class="coupon-label">Gift of Joy</span>
+                    </div>
+                    <div class="coupon-back">
+                      <div class="coupon-back-content">
+                        <span class="cash-value">$100</span>
+                        <p class="cash-label">Birthday Gift! 🎁</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coupon 4 -->
+                <div class="coupon-card" id="coupon-4">
+                  <div class="coupon-inner">
+                    <div class="coupon-front">
+                      <span class="coupon-icon">🏆</span>
+                      <span class="coupon-label">Gift of Success</span>
+                    </div>
+                    <div class="coupon-back">
+                      <div class="coupon-back-content">
+                        <span class="cash-value">$100</span>
+                        <p class="cash-label">Birthday Gift! 🎁</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              
+              <!-- OK button after the squares -->
+              <div class="ok-btn-container">
+                <button id="ok-btn" class="elegant-btn ok-btn">OK Bye</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
